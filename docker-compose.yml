@@ -1,0 +1,30 @@
+services:
+
+  website:
+    image: php:apache
+    volumes:
+      - ./website:/var/www/html
+    depends_on:
+      - student-list
+    ports:
+      - 8085:80 
+    networks:
+      - webapp-net 
+    environment:
+      - USERNAME=toto
+      - PASSWORD=python
+  
+  student-list:
+    image: student-list
+    ports:
+      - 5000:5000
+    volumes:
+      - ./simple_api/student_age.json:/data/student_age.json
+    networks:
+      - webapp-net
+
+networks:
+  webapp-net:
+    driver: bridge
+          
+version: '3.0'
