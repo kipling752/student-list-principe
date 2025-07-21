@@ -1,0 +1,23 @@
+name: envoie de l'image sur dockerhub
+
+on: workflow_dispatch
+
+jobs:
+    premier_job:
+        runs-on: ubuntu
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4.2.1
+
+            - name: connexion à DockerHub
+              uses: docker/login-action@v3.3.0
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Build et push de l'image Docker
+              uses: docker/build-push-action@v6.17.0
+              with:
+                context: ./simple_api
+                push: true
+                tags: ${{ secrets.DOCKERHUB_USERNAME }}/student-list:latest
