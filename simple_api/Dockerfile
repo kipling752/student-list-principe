@@ -1,10 +1,17 @@
-FROM python:3.8-buster
+FROM python:3.11-slim
 
 WORKDIR /
 
 COPY requirements.txt ./
 
-RUN apt update -y && apt install python-dev python3-dev libsasl2-dev python-dev libldap2-dev libssl-dev -y
+RUN apt-get update -y && apt-get install -y \
+    python3-dev \
+    libsasl2-dev \
+    libldap2-dev \
+    libssl-dev \
+    build-essential \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install  -r requirements.txt
 
