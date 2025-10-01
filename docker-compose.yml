@@ -15,7 +15,7 @@ services:
       - PASSWORD=python
   
   student-list:
-    image: student-list
+    image: registry.gitlab.com/systoker/student-list-principe
     ports:
       - 5000:5000
     volumes:
@@ -27,4 +27,5 @@ networks:
   webapp-net:
     driver: bridge
           
+
 version: '3.0'
